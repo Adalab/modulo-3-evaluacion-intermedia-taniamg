@@ -46,26 +46,30 @@ function App() {
     setSelect(ev.target.value);
   };
   const htmlClubs = () => {
-    return data.map((club, index) => {
-      return (
-        <li key={index}>
-          <p>
-            #{index}:{club.name}
-          </p>
-          <p>
-            {club.openOnWeekdays === true
-              ? "Abierto entre semana: Sí"
-              : "Abierto entre semana : No"}
-          </p>
+    return data
+      .filter((oneClub) =>
+        oneClub.name.toLocaleLowerCase().includes(select.toLocaleLowerCase())
+      )
+      .map((club, index) => {
+        return (
+          <li key={index}>
+            <p>
+              #{index}:{club.name}
+            </p>
+            <p>
+              {club.openOnWeekdays === true
+                ? "Abierto entre semana: Sí"
+                : "Abierto entre semana : No"}
+            </p>
 
-          <p>
-            {club.openOnWeekend === true
-              ? "Abierto el fin de semana: Sí"
-              : "Abierto el fin de semana : No"}
-          </p>
-        </li>
-      );
-    });
+            <p>
+              {club.openOnWeekend === true
+                ? "Abierto el fin de semana: Sí"
+                : "Abierto el fin de semana : No"}
+            </p>
+          </li>
+        );
+      });
   };
 
   return (
