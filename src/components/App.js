@@ -6,8 +6,8 @@ function App() {
   const [data, setData] = useState(initialData);
   const [newClub, setNewClub] = useState({
     name: "",
-    openOnWeekdays: "",
-    openOnweekend: "",
+    openOnWeekdays: false,
+    openOnweekend: false,
   });
 
   const handleNewClub = (ev) => {
@@ -19,12 +19,12 @@ function App() {
     } else if (ev.currentTarget.id === "week") {
       setNewClub({
         ...newClub,
-        openOnWeekdays: ev.currentTarget.value,
+        openOnWeekdays: ev.currentTarget.checked,
       });
     } else if (ev.currentTarget.id === "weekend") {
       setNewClub({
         ...newClub,
-        openOnWeekdend: ev.currentTarget.value,
+        openOnWeekend: ev.currentTarget.checked,
       });
     }
   };
@@ -36,8 +36,8 @@ function App() {
 
     setNewClub({
       name: "",
-      openOnWeekdays: "",
-      openOnweekend: "",
+      openOnWeekdays: false,
+      openOnweekend: false,
     });
   };
 
@@ -68,6 +68,15 @@ function App() {
     <div>
       <header>
         <h1>Mis clubs</h1>
+        <form>
+          <label htmlFor="search">Mostrar</label>
+          <select name="selectClub" id="selected">
+            <option value=""></option>
+            <option value="all">Todos</option>
+            <option value="openWeek">los que abren entre semana</option>
+            <option value="openWeekend">los que abren el fin de semana</option>
+          </select>
+        </form>
       </header>
       <main>
         <ul>{htmlClubs()}</ul>
@@ -87,7 +96,7 @@ function App() {
             type="checkbox"
             name="openOption"
             onChange={handleNewClub}
-            value={newClub.openOnWeekdays}
+            checked={newClub.openOnWeekdays}
           />
           <label htmlFor="weekend">¿Abre los fines de semana?</label>
           <input
@@ -95,7 +104,7 @@ function App() {
             type="checkbox"
             name="openOption"
             onChange={handleNewClub}
-            value={newClub.openOnWeekend}
+            checked={newClub.openOnWeekdend}
           />
           <input
             type="buton"
