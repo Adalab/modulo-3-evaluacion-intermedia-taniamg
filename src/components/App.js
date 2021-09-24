@@ -10,6 +10,37 @@ function App() {
     openOnweekend: "",
   });
 
+  const handleNewClub = (ev) => {
+    if (ev.currentTarget.id === "name") {
+      setNewClub({
+        ...newClub,
+        name: ev.currentTarget.value,
+      });
+    } else if (ev.currentTarget.id === "week") {
+      setNewClub({
+        ...newClub,
+        openOnWeekdays: ev.currentTarget.value,
+      });
+    } else if (ev.currentTarget.id === "weekend") {
+      setNewClub({
+        ...newClub,
+        openOnWeekdend: ev.currentTarget.value,
+      });
+    }
+  };
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+
+    setData([...data, newClub]);
+
+    setNewClub({
+      name: "",
+      openOnWeekdays: "",
+      openOnweekend: "",
+    });
+  };
+
   const htmlClubs = () => {
     return data.map((club, index) => {
       return (
@@ -43,12 +74,34 @@ function App() {
         <form>
           <h2>Añadir un nuevo club</h2>
           <label htmlFor="name">Nombre del club</label>
-          <input type="text" name="name" id="name" />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            onChange={handleNewClub}
+            value={newClub.name}
+          />
           <label htmlFor="week">¿Abre entre semana?</label>
-          <input id="week" type="checkbox" name="openOption" />
+          <input
+            id="week"
+            type="checkbox"
+            name="openOption"
+            onChange={handleNewClub}
+            value={newClub.openOnWeekdays}
+          />
           <label htmlFor="weekend">¿Abre los fines de semana?</label>
-          <input id="weekend" type="checkbox" name="openOption" />
-          <input type="buton" value="Añadir un nuevo club" />
+          <input
+            id="weekend"
+            type="checkbox"
+            name="openOption"
+            onChange={handleNewClub}
+            value={newClub.openOnWeekend}
+          />
+          <input
+            type="buton"
+            value="Añadir un nuevo club"
+            onClick={handleSubmit}
+          />
         </form>
       </main>
     </div>
