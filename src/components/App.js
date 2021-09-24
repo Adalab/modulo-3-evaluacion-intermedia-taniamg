@@ -9,6 +9,7 @@ function App() {
     openOnWeekdays: false,
     openOnweekend: false,
   });
+  const [select, setSelect] = useState("");
 
   const handleNewClub = (ev) => {
     if (ev.currentTarget.id === "name") {
@@ -41,6 +42,9 @@ function App() {
     });
   };
 
+  const handleSelectClub = (ev) => {
+    setSelect(ev.target.value);
+  };
   const htmlClubs = () => {
     return data.map((club, index) => {
       return (
@@ -70,7 +74,7 @@ function App() {
         <h1>Mis clubs</h1>
         <form>
           <label htmlFor="search">Mostrar</label>
-          <select name="selectClub" id="selected">
+          <select name="selectClub" id="selected" onChange={handleSelectClub()}>
             <option value=""></option>
             <option value="all">Todos</option>
             <option value="openWeek">los que abren entre semana</option>
