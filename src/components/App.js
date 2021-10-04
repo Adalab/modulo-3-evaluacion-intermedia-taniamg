@@ -1,32 +1,37 @@
-import "../styles/main.scss";
-import React, { useState } from "react";
-import initialData from "../data/clubList.json";
+import '../styles/main.scss';
+import React, { useState } from 'react';
+import initialData from '../data/clubList.json';
 
 function App() {
   const [data, setData] = useState(initialData);
   const [newClub, setNewClub] = useState({
-    name: "",
+    name: '',
     openOnWeekdays: false,
     openOnweekend: false,
   });
+  const [filter, setFilter] = useState('all');
 
   const handleNewClub = (ev) => {
-    if (ev.currentTarget.id === "name") {
+    if (ev.currentTarget.id === 'name') {
       setNewClub({
         ...newClub,
         name: ev.currentTarget.value,
       });
-    } else if (ev.currentTarget.id === "week") {
+    } else if (ev.currentTarget.id === 'week') {
       setNewClub({
         ...newClub,
         openOnWeekdays: ev.currentTarget.checked,
       });
-    } else if (ev.currentTarget.id === "weekend") {
+    } else if (ev.currentTarget.id === 'weekend') {
       setNewClub({
         ...newClub,
         openOnWeekend: ev.currentTarget.checked,
       });
     }
+  };
+
+  const handleFilter = (ev) => {
+    setFilter(ev.target.value);
   };
 
   const handleSubmit = (ev) => {
@@ -35,33 +40,43 @@ function App() {
     setData([...data, newClub]);
 
     setNewClub({
-      name: "",
+      name: '',
       openOnWeekdays: false,
       openOnweekend: false,
     });
   };
 
   const htmlClubs = () => {
-    return data.map((club, index) => {
-      return (
-        <li key={index}>
-          <p>
-            #{index}:{club.name}
-          </p>
-          <p>
-            {club.openOnWeekdays === true
-              ? "Abierto entre semana: Sí"
-              : "Abierto entre semana : No"}
-          </p>
+    return data
+      .filter((club) => {
+        if (filter === 'openOnWeekdays') {
+          return club.openOnWeekdays === true;
+        } else if (filter === 'openOnWeekend') {
+          return club.openOnWeekdend === true;
+        }
+        return true;
+      })
 
-          <p>
-            {club.openOnWeekend === true
-              ? "Abierto el fin de semana: Sí"
-              : "Abierto el fin de semana : No"}
-          </p>
-        </li>
-      );
-    });
+      .map((club, index) => {
+        return (
+          <li key={index}>
+            <p>
+              #{index}:{club.name}
+            </p>
+            <p>
+              {club.openOnWeekdays === true
+                ? 'Abierto entre semana: Sí'
+                : 'Abierto entre semana : No'}
+            </p>
+
+            <p>
+              {club.openOnWeekend === true
+                ? 'Abierto el fin de semana: Sí'
+                : 'Abierto el fin de semana : No'}
+            </p>
+          </li>
+        );
+      });
   };
 
   return (
@@ -70,7 +85,7 @@ function App() {
         <h1>Mis clubs</h1>
         <form>
           <label htmlFor="search">Mostrar</label>
-          <select name="selectClub" id="selected">
+          <select value={filter} onChange={handleFilter}>
             <option value=""></option>
             <option value="all">Todos</option>
             <option value="openWeek">los que abren entre semana</option>
