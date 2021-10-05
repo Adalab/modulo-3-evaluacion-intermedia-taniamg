@@ -59,7 +59,7 @@ function App() {
 
       .map((club, index) => {
         return (
-          <li key={index}>
+          <li key={index} className="club_conatiner">
             <p>
               #{index}:{club.name}
             </p>
@@ -81,9 +81,9 @@ function App() {
 
   return (
     <div>
-      <header>
-        <h1>Mis clubs</h1>
-        <form>
+      <header className="main_conatiner">
+        <h1 className="club_name">Mis clubs</h1>
+        <form className="club_search">
           <label htmlFor="search">Mostrar</label>
           <select value={filter} id="filter" onChange={handleFilter}>
             <option value="all">Todos</option>
@@ -95,11 +95,14 @@ function App() {
         </form>
       </header>
       <main>
-        <ul>{htmlClubs()}</ul>
-        <form>
-          <h2>Añadir un nuevo club</h2>
-          <label htmlFor="name">Nombre del club</label>
+        <ul className="club_container-main">{htmlClubs()}</ul>
+        <form className="new_club-container">
+          <h2 className="new_club-text">Añadir un nuevo club</h2>
+          <label className="new_club-name" htmlFor="name">
+            Nombre del club
+          </label>
           <input
+            className="new_club-input"
             type="text"
             name="name"
             id="name"
@@ -123,6 +126,7 @@ function App() {
             checked={newClub.openOnWeekdend}
           />
           <input
+            className="new_club-btn"
             type="buton"
             value="Añadir un nuevo club"
             onClick={handleSubmit}
