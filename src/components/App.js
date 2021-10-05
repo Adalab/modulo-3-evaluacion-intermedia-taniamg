@@ -31,7 +31,7 @@ function App() {
   };
 
   const handleFilter = (ev) => {
-    setFilter(ev.target.value);
+    setFilter(ev.currentTarget.value);
   };
 
   const handleSubmit = (ev) => {
@@ -85,11 +85,12 @@ function App() {
         <h1>Mis clubs</h1>
         <form>
           <label htmlFor="search">Mostrar</label>
-          <select value={filter} onChange={handleFilter}>
-            <option value=""></option>
+          <select value={filter} id="filter" onChange={handleFilter}>
             <option value="all">Todos</option>
-            <option value="openWeek">los que abren entre semana</option>
-            <option value="openWeekend">los que abren el fin de semana</option>
+            <option value="openOnWeekdays">los que abren entre semana</option>
+            <option value="openOnWeekend">
+              los que abren el fin de semana
+            </option>
           </select>
         </form>
       </header>
